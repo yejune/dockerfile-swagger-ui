@@ -1,8 +1,13 @@
 #! /bin/sh
 
 if [ ! -z "$API_URL" ] ; then
-  sed -i "s|http://petstore.swagger.io/v2/swagger.json|$API_URL|g" index.html
-  sed -i "s|http://example.com/api|$API_URL|g" index.html
+  if [ ! -z "$API_HOST" ] ; then
+    wget -O swagger.json ${API_URL}
+    sed -i "s|\"host\": \".*\",|\"host\": \"${API_HOST}\",|g" swagger.json
+    API_URL="http://${DOMAIN}/swagger.json"
+  fi
+  sed -i "s|http://petstore.swagger.io/v2/swagger.json|${API_URL}|g" index.html
+  sed -i "s|http://example.com/api|${API_URL}|g" index.html
 fi
 
 sed -i "s|.*validatorUrl:.*$||g" index.html
