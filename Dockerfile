@@ -5,8 +5,7 @@ ENV VERSION "2.2.5"
 RUN apk update && apk add --update nginx openssl \
     && wget -qO- https://github.com/swagger-api/swagger-ui/archive/v$VERSION.tar.gz | tar xvz \
     && cp -r swagger-ui-$VERSION/dist/* /usr/share/nginx/html \
-    && rm -rf swagger-ui-$VERSION \
-    && apk del openssl
+    && rm -rf swagger-ui-$VERSION
 
 WORKDIR /usr/share/nginx/html
 
