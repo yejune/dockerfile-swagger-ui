@@ -1,6 +1,6 @@
 FROM alpine:3.3
 
-ENV VERSION "2.2.5"
+ENV VERSION "2.2.8"
 
 RUN apk update && apk add --update nginx openssl \
     && wget -qO- https://github.com/swagger-api/swagger-ui/archive/v$VERSION.tar.gz | tar xvz \
