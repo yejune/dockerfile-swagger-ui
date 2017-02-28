@@ -2,7 +2,7 @@ FROM alpine:3.3
 
 ENV VERSION "2.2.8"
 
-RUN apk update && apk add --update nginx openssl \
+RUN apk update && apk add --update nginx openssl curl \
     && wget -qO- https://github.com/swagger-api/swagger-ui/archive/v$VERSION.tar.gz | tar xvz \
     && cp -r swagger-ui-$VERSION/dist/* /usr/share/nginx/html \
     && rm -rf swagger-ui-$VERSION

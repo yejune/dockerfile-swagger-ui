@@ -2,7 +2,11 @@
 
 if [ ! -z "$API_URL" ] ; then
   if [ ! -z "$API_HOST" ] ; then
-    wget -O swagger.json ${API_URL}
+    if [ ! -z "$GITHUB_ACCESS_TOKEN" ] ; then
+      curl -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" -H "Accept: application/vnd.github.v3.raw" -sL "${API_URL}" > swagger.json
+    else
+      curl -H "Accept: application/vnd.github.v3.raw" -sL "${API_URL}" > swagger.json
+    fi
     sed -i "s|\"host\": \".*\",|\"host\": \"${API_HOST}\",|g" swagger.json
     API_URL="http://${DOMAIN}/swagger.json"
   fi
